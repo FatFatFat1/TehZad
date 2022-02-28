@@ -1,30 +1,32 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
-public class PlayerController : MonoBehaviour
+public class PlayerController : MonoBehaviour, IBeginDragHandler ,IDragHandler
 {
-    private float _speed = 2f;
-    public GameObject Distant;
+    public GameObject Player;
     void Update()
     {
-        if(Distant.transform.position.x > 6)
+        if(Player.transform.position.x > 6)
         {
-            Distant.transform.position = new Vector2(6, Distant.transform.position.y);
+            Player.transform.position= new Vector2(6, 0);
         }
-        if (Distant.transform.position.x < -6)
+        if(Player.transform.position.x < -6)
         {
-            Distant.transform.position = new Vector2(-6, Distant.transform.position.y);
+            Player.transform.position = new Vector2(-6 ,0);
         }
-        // Drag
-        if (Input.GetKeyDown(KeyCode.A))
-        {
-            Distant.transform.position = new Vector2(Distant.transform.position.x - 1 , Distant.transform.position.y);
-        }
-        if (Input.GetKeyDown(KeyCode.D))
-        {
-            Distant.transform.position = new Vector2(Distant.transform.position.x + 1, Distant.transform.position.y);
-        }
-        transform.position = Vector2.Lerp(transform.position, Distant.transform.position, Time.deltaTime * _speed);
     }
+#if UNITY_IOS || UNITY_ANDROID
+    //Swipe
+    public void OnBeginDrag(PointerEventData eventData)
+    {
+        Player.transform.position = Vector2.Lerp(Player.transform.position , new Vector2(eventData.delta.x , 0) , Time.deltaTime);
+    }
+
+    public void OnDrag(PointerEventData eventData)
+    {
+
+    }
+#endif
 }
