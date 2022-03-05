@@ -4,22 +4,30 @@ using UnityEngine;
 
 public class NowController : MonoBehaviour
 {
+    public Component[] AllController;
     public void DragAvtive()
     {
-        gameObject.GetComponent<DragController>().enabled = true;
-        gameObject.GetComponent<SwipeController>().enabled = false;
-        gameObject.GetComponent<KeyboardController>().enabled = false;
+        foreach (Behaviour i in AllController)
+        {
+            i.enabled = false;
+        }
+        GetComponent<DragController>().enabled = true;
     }
     public void SwipeActive()
     {
-        gameObject.GetComponent<SwipeController>().enabled = true;
-        gameObject.GetComponent<DragController>().enabled = false;
-        gameObject.GetComponent<KeyboardController>().enabled = false;
+        foreach (Behaviour i in AllController)
+        {
+            i.enabled = false;
+        }
+        GetComponent<SwipeController>().enabled = true;
     }
     public void KeyboardActive()
     {
-        gameObject.GetComponent<KeyboardController>().enabled = true;
-        gameObject.GetComponent<SwipeController>().enabled = false;
-        gameObject.GetComponent<DragController>().enabled = false;
+        foreach (Behaviour i in AllController)
+        {
+            i.enabled = false;
+        }
+        GetComponent<KeyboardController>().enabled = true;
     }
+
 }
