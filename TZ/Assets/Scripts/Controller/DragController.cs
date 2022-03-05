@@ -6,7 +6,6 @@ using UnityEngine.EventSystems;
 public class DragController : MonoBehaviour , IDragHandler , IPointerClickHandler
 {
     public GameObject Player;
-    public Canvas canvas;
     public Camera Cam;
     private Vector2 _distant;
 
@@ -19,7 +18,6 @@ public class DragController : MonoBehaviour , IDragHandler , IPointerClickHandle
     {
         _distant = new Vector2(eventData.position.x , 0);
         _distant = Cam.ScreenToWorldPoint(_distant);
-        Debug.Log(_distant);
     }
     void Update()
     {
